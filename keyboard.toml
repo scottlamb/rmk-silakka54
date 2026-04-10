@@ -1,0 +1,116 @@
+[keyboard]
+name = "Silakka54"
+product_name = "Silakka54"
+vendor_id = 0xFEED
+product_id = 0x1212
+manufacturer = "Squalius-cephalus"
+chip = "rp2040"
+usb_enable = true
+
+[host]
+unlock_keys = [[0, 0], [0, 1]]
+
+[layout]
+# Full logical matrix: 5 rows per side × 2 sides = 10 rows; 6 cols
+rows = 10
+cols = 6
+layers = 4
+# Replace with your real keymap. `_` = transparent, `No` = unused position.
+# Rows 0..4 = left (central), rows 5..9 = right (peripheral, mirrored wiring).
+keymap = [
+    [
+        ["Escape", "Kc1",   "Kc2",   "Kc3",   "Kc4",   "Kc5"],
+        ["Tab",    "Q",     "W",     "E",     "R",     "T"],
+        ["LCtrl",  "A",     "S",     "D",     "F",     "G"],
+        ["LShift", "Z",     "X",     "C",     "V",     "B"],
+        ["No",     "No",    "No",    "LGui",  "LAlt",  "Space"],
+        # Right side (rows 5..9). The right half's matrix is wired mirrored:
+        # matrix col 0 (GP7) is the *rightmost* visible key on this half, and
+        # matrix col 5 (GP12) is the leftmost. So each row below is written
+        # right-to-left in visual order.
+        ["Minus",  "Kc0",   "Kc9",   "Kc8",   "Kc7",   "Kc6"],
+        ["Equal",  "P",     "O",     "I",     "U",     "Y"],
+        ["Quote",  "Semicolon", "L", "K",     "J",     "H"],
+        ["Enter",  "Slash", "Dot",   "Comma", "M",     "N"],
+        ["No",     "No",    "No",    "RAlt",  "MO(1)", "Backspace"],
+    ],
+    [
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+    ],
+    [
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+    ],
+    [
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_"],
+    ],
+]
+
+[storage]
+
+[split]
+connection = "serial"
+
+# Left half = central. Matrix is 5 rows × 6 cols, no offset.
+[split.central]
+rows = 5
+cols = 6
+row_offset = 0
+col_offset = 0
+serial = [
+    { instance = "UART0", tx_pin = "PIN_0", rx_pin = "PIN_1" },
+]
+[split.central.matrix]
+matrix_type = "normal"
+# COL2ROW (RMK default) — matches QMK config
+row_pins = ["PIN_2", "PIN_3", "PIN_4", "PIN_5", "PIN_6"]
+col_pins = ["PIN_7", "PIN_8", "PIN_9", "PIN_10", "PIN_11", "PIN_12"]
+
+# Hold the top-left key (Escape) on the left half during boot to drop into
+# the RP2040 USB bootloader. Local matrix coordinates.
+bootmagic = [0,0]
+
+# Right half = peripheral. Same wiring; offset into rows 5..9 of the logical map.
+[[split.peripheral]]
+rows = 5
+cols = 6
+row_offset = 5
+col_offset = 0
+serial = [
+    { instance = "UART0", tx_pin = "PIN_0", rx_pin = "PIN_1" },
+]
+[split.peripheral.matrix]
+matrix_type = "normal"
+row_pins = ["PIN_2", "PIN_3", "PIN_4", "PIN_5", "PIN_6"]
+col_pins = ["PIN_7", "PIN_8", "PIN_9", "PIN_10", "PIN_11", "PIN_12"]
+
+# Hold the top-right (visually) key on the right half during boot to drop
+# into the RP2040 USB bootloader. Local matrix coordinates of *this* MCU,
+# which on the right half are mirrored from the visual layout.
+bootmagic = [0,0]
