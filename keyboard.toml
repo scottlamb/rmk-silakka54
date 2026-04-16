@@ -14,65 +14,85 @@ unlock_keys = [[0, 0], [0, 1]]
 # Full logical matrix: 5 rows per side × 2 sides = 10 rows; 6 cols
 rows = 10
 cols = 6
-layers = 4
+layers = 3
 # Replace with your real keymap. `_` = transparent, `No` = unused position.
 # Rows 0..4 = left (central), rows 5..9 = right (peripheral, mirrored wiring).
 keymap = [
     [
-        ["Escape", "Kc1",   "Kc2",   "Kc3",   "Kc4",   "Kc5"],
-        ["Tab",    "Q",     "W",     "E",     "R",     "T"],
-        ["LCtrl",  "A",     "S",     "D",     "F",     "G"],
-        ["LShift", "Z",     "X",     "C",     "V",     "B"],
-        ["No",     "No",    "No",    "LGui",  "LAlt",  "Space"],
+        ["Grv",           "Kc1",   "Kc2",   "Kc3",   "Kc4",   "Kc5"],
+        ["Tab",           "Q",     "W",     "E",     "R",     "T"],
+        ["TH(Esc,LCtrl)", "A",     "S",     "D",     "F",     "G"],
+        ["LShift",        "Z",     "X",     "C",     "V",     "B"],
+        ["No",            "No",    "No",    "LAlt",  "LGui",  "LT(1,Space)"],
         # Right side (rows 5..9). The right half's matrix is wired mirrored:
         # matrix col 0 (GP7) is the *rightmost* visible key on this half, and
         # matrix col 5 (GP12) is the leftmost. So each row below is written
         # right-to-left in visual order.
-        ["Minus",  "Kc0",   "Kc9",   "Kc8",   "Kc7",   "Kc6"],
-        ["Equal",  "P",     "O",     "I",     "U",     "Y"],
-        ["Quote",  "Semicolon", "L", "K",     "J",     "H"],
-        ["Enter",  "Slash", "Dot",   "Comma", "M",     "N"],
-        ["No",     "No",    "No",    "RAlt",  "MO(1)", "Backspace"],
+        ["Minus",         "Kc0",   "Kc9",   "Kc8",   "Kc7",   "Kc6"],
+        ["Backspace",     "P",     "O",     "I",     "U",     "Y"],
+        ["Quote",         "Semicolon", "L", "K",     "J",     "H"],
+        ["RShift",        "TH(Slash,RCtrl)", "Dot",   "Comma", "M",     "N"],
+        ["No",            "No",    "No",    "RAlt",  "RGui", "LT(2,Enter)"],
     ],
     [
+        # left
         ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "Kc5", "Kc4", "Kc3", "_"],
+        ["_", "_", "Kc2", "Kc1", "Kc0", "Kc9"],
+        ["_", "_", "Kc8", "Kc7", "Kc6", "_"],
+        ["_", "_", "_", "_", "_", "Del"],
+        # right
         ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-    ],
-    [
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
+        ["_", "_", "End", "PageUp", "PageDown", "Home"],
+        ["_", "_", "Right", "Up", "Down", "Left"],
+        ["_", "_", "_", "_", "SHIFTED(Semicolon)", "_"],
         ["_", "_", "_", "_", "_", "_"],
     ],
     [
+        # left
         ["_", "_", "_", "_", "_", "_"],
+        ["_", "SHIFTED(1)", "SHIFTED(Comma)", "SHIFTED(Dot)", "Minus", "SHIFTED(Backslash)"],
+        ["_", "SHIFTED(Minus)", "SHIFTED(Kc8)", "Slash", "Equal", "SHIFTED(Kc7)"],
+        ["_", "SHIFTED(Slash)", "SHIFTED(Equal)", "LeftBracket", "RightBracket", "SHIFTED(Kc5)"],
         ["_", "_", "_", "_", "_", "_"],
+        # right
         ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
+        ["_", "SHIFTED(Backslash)", "SHIFTED(Kc4)", "SHIFTED(RightBracket)", "SHIFTED(LeftBracket)", "SHIFTED(Kc6)"],
+        ["Quote", "Semicolon", "SHIFTED(Quote)", "SHIFTED(Kc0)", "SHIFTED(Kc9)", "SHIFTED(Kc3)"],
+        ["_", "Backslash", "Dot", "Comma", "SHIFTED(Semicolon)", "SHIFTED(Kc2)"],
         ["_", "_", "_", "_", "_", "_"],
     ],
+    # [
+    #     # left
+    #     ["_", "_", "_", "_", "_", "_"],
+    #     ["_", "_", "_", "_", "_", "_"],
+    #     ["_", "_", "_", "_", "_", "_"],
+    #     ["_", "_", "_", "_", "_", "_"],
+    #     ["_", "_", "_", "_", "_", "_"],
+    #     # right
+    #     ["_", "_", "_", "_", "_", "_"],
+    #     ["_", "_", "_", "_", "_", "_"],
+    #     ["_", "_", "_", "_", "_", "_"],
+    #     ["_", "_", "_", "_", "_", "_"],
+    #     ["_", "_", "_", "_", "_", "_"],
+    # ],
 ]
 
+[behavior.combo]
+timeout = "45ms"
+combos = [
+  { actions = ["N", "M"], output = "[" },
+  { actions = ["M", "Comma"], output = "]" },
+  { actions = ["Comma", "Dot"], output = "Equal" },
+  { actions = ["Dot", "TH(Slash,RCtrl)"], output = "Backslash" },
+  { actions = ["LShift", "RShift"], output = "CapsWordToggle" },
+]
+
+[behavior.morse]
+permissive_hold = true
+
 [storage]
+num_sectors = 16
 
 [split]
 connection = "serial"
