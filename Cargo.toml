@@ -4,8 +4,8 @@ version = "0.0.0"
 edition = "2024"
 
 [dependencies]
-rmk = { git = "https://github.com/HaoboGu/rmk", revision = "https://github.com/HaoboGu/rmk/commit/530e1b00d8f18e8d4e32360680b1a92f0cb0264c", default-features = false, features = [ "rp2040", "split", "storage", "vial", "vial_lock", "usb_log", "rp2040" ] }
-#rmk = { path = "../rmk/rmk", default-features = false, features = [ "rp2040", "split", "storage", "vial", "vial_lock", "usb_log", "rp2040" ] }
+rmk = { git = "https://github.com/HaoboGu/rmk", rev = "a019774356d3ef036ae7bfe135739b69488977f2", default-features = false, features = [ "rp2040", "split", "storage", "vial", "vial_lock", "usb_log", "rp2040", "async_matrix" ] }
+#rmk = { path = "../rmk/rmk", default-features = false, features = [ "rp2040", "split", "storage", "vial", "vial_lock", "usb_log", "rp2040", "async_matrix" ] }
 embassy-time = { version = "0.5" }
 embassy-rp = { version = "0.10", features = [
     "rp2040",
@@ -19,8 +19,12 @@ embassy-executor = { version = "0.10", features = [
 embassy-futures = { version = "0.1" }
 cortex-m-rt = "0.7.5"
 portable-atomic = { version = "1.11", features = ["critical-section"] }
+
+# XXX: `rmk` macros unconditionally use `defmt` in the peripheral build.
+# We should fix this, but for now, add the dependency.
 defmt = "1.0"
 defmt-rtt = "1.0"
+
 panic-probe = { version = "1.0" }
 static_cell = "2"
 

@@ -7,6 +7,9 @@ manufacturer = "Squalius-cephalus"
 chip = "rp2040"
 usb_enable = true
 
+[dependency]
+defmt_log = false
+
 [host]
 unlock_keys = [[0, 0], [0, 1]]
 
